@@ -1,0 +1,12 @@
+$ git log
+commit fb196014ca964a4f528e3aa9584495f440fd9875
+Author: Victor Reut <reut.vit@yandex.ru>
+Date:   Wed Feb 10 21:49:00 2016 +0200
+
+    Add status.txt
+
+commit 7f115814e6a106d6629efd3a068615553d67b65d
+Author: Victor Reut <reut.vit@yandex.ru>
+Date:   Wed Feb 10 21:44:23 2016 +0200
+
+    Add .gitignore
