@@ -9,9 +9,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ASUS on 11.02.2016.
@@ -25,10 +27,14 @@ public class MainClass {
         System.out.println("0.Load messages from file");
         System.out.println("1.Save messages in file");
         System.out.println("2.Add a message");
-        System.out.println("3.Look the history");
+        System.out.println("3.Show the history");
         System.out.println("4.Delete message");
-        System.out.println("5.Log off");
-        while (!choice.equals("5"))
+        System.out.println("5.Find message by author");
+        System.out.println("6.Find message by word");
+        System.out.println("7.FInd by regular expression");
+        System.out.println("8.Find by time period");
+        System.out.println("9.End of program");
+        while (!choice.equals("9"))
         {
             choice=in.next();
             switch(choice){
@@ -99,7 +105,6 @@ public class MainClass {
                     if (!hist.isEmpty()){
                         FileWriter forOut = new FileWriter("history.json");
                         JsonWriter forWrite = Json.createWriter(forOut);
-                        // JsonObject t[]= new JsonObject[hist.size()];
                         JsonArrayBuilder wrightArray = Json.createArrayBuilder();
                         for (int i = 0;i<hist.size();i++)
                         {
@@ -107,7 +112,6 @@ public class MainClass {
                                     .add("author",hist.get(i).getAuthor())
                                     .add("timestamp",hist.get(i).getTimestamp().getTime())
                                     .add("message", hist.get(i).getMessage()).build());
-                            // wrightArray.add(t[i]);
                         }
                         JsonArray arr = wrightArray.build();
                         forWrite.writeArray(arr);
@@ -121,11 +125,98 @@ public class MainClass {
                     }
                 }
                 case "5":{
+                    System.out.println("input author");
+                    Scanner sc = new Scanner(System.in);
+                    String auth = sc.nextLine();
+                    boolean ifFind = false;
+                    for (Message iter: hist)
+                    {
+                        if (iter.getAuthor().equals(auth))
+                        {
+                            System.out.println(iter.toString());
+                            ifFind = true;
+                        }
+                    }
+                    if (ifFind)
+                        System.out.println("Successfully done");
+                    else System.out.println("No message from this author");
+                    break;
+                }
+                case "6":{
+                    System.out.println("input word");
+                    Scanner sc = new Scanner(System.in);
+                    String word = sc.next();
+                    boolean ifFind = false;
+                    for (Message it: hist)
+                    {
+                        if (it.getMessage().contains(word))
+                        {
+                            System.out.println(it.toString());
+                            ifFind = true;
+                        }
+                    }
+                    if (ifFind)
+                        System.out.println("Successfully done");
+                    else System.out.println("No message with this word");
+                    break;
+                }
+                case "8":{
+                    Scanner sc = new Scanner(System.in);
+                    boolean ifFind = false;
+                    System.out.println("input start time in format: MM/dd/yyyy HH:mm:ss");
+                    SimpleDateFormat start = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    Date stDat=null;
+                    try {
+                        stDat = start.parse(sc.nextLine());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("input end time in format: MM/dd/yyyy HH:mm:ss");
+                    SimpleDateFormat end = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    Date enDat=null;
+                    try {
+                        enDat = end.parse(sc.nextLine());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    for (Message iter: hist)
+                    {
+                        if (iter.getTimestamp().after(stDat) && iter.getTimestamp().before(enDat))
+                        {
+                            System.out.println(iter.toString());
+                            ifFind = true;
+                        }
+                    }
+                    if (ifFind)
+                        System.out.println("Successfully done");
+                    else System.out.println("No message of this period");
+                    break;
+                }
+                case "7":{
+                    Scanner sc = new Scanner(System.in);
+                    boolean ifFind = false;
+                    System.out.println("input regular expression");
+                    String regEx = sc.nextLine();
+                    Pattern pat = Pattern.compile(regEx);
+                    for (Message iter: hist)
+                    {
+                        Matcher matcher = pat.matcher(iter.getMessage());
+                        if (matcher.find())
+                        {
+                            ifFind = true;
+                            System.out.println(iter.toString());
+                        }
+                    }
+                    if (!ifFind)
+                        System.out.println("There are no messages with this regular expression");
+                    break;
+                }
+                case "9":{
                     System.out.println("End of program");
                     break;
                 }
                 default:{
-                    System.out.println("You need number from 0 to 5");
+                    System.out.println("You need number from 0 to 9");
                     break;
                 }
             }
