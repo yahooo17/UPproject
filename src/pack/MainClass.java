@@ -3,11 +3,12 @@ package pack;
 import jdk.nashorn.api.scripting.JSObject;
 
 import javax.json.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,9 @@ public class MainClass {
         ArrayList<Message> hist = new ArrayList<Message>();
         String choice="";
         Scanner in=new Scanner(System.in);
+        FileWriter cl = new FileWriter("logfile.txt",false);
+        cl.write("");
+        FileWriter request = new FileWriter("logfile.txt",true);
         System.out.println("Choose your variant");
         System.out.println("0.Load messages from file");
         System.out.println("1.Save messages in file");
@@ -39,69 +43,36 @@ public class MainClass {
             choice=in.next();
             switch(choice){
                 case "0":{
-                    String JSONData= Files.readAllLines(Paths.get("history.json")).toString();
-                    JsonReader forRead = Json.createReader(new StringReader(JSONData));
-                    JsonArray forArray = forRead.readArray();
-                    if(forArray.size() == 0)
-                    {
-                        System.out.println("Your history is empty");
-                        break;
-                    }
-                    JsonArray mas = forArray.getJsonArray(0);
-                    forRead.close();
-                    for (int i = 0;i<mas.size();i++)
-                    {
-                        JsonObject tmp = mas.getJsonObject(i);
-                        Date tmpTime = new Date(tmp.getJsonNumber("timestamp").longValue());
-                        Message tempMes = new Message(tmp.getString("author"),tmpTime,
-                                tmp.getString("message"),tmp.getString("id"));
-                        hist.add(tempMes);
-                    }
-                    System.out.println("Successfully done");
-                    break;
-                }
-                case "3":{
-                    if (!hist.isEmpty()){
-                        for (Message i: hist)
-                        {
-                            System.out.println(i.toString());
+                    request.write("0.Load messages from file"+"\r\n");
+                    hist.clear();
+                    try {
+                        String JSONData = Files.readAllLines(Paths.get("history.json")).toString();
+                        JsonReader forRead = Json.createReader(new StringReader(JSONData));
+                        JsonArray forArray = forRead.readArray();
+                        if (forArray.size() == 0) {
+                            System.out.println("Your history is empty");
+                            break;
                         }
-                        break;
-                    }
-                    else {
-                        System.out.println("empty history");
-                        break;
-                    }
-                }
-                case "4":{
-                    System.out.println("Input need id");
-                    Scanner sc = new Scanner(System.in);
-                    String idNeed = sc.next();
-                    int count = hist.size();
-                    for (int i = 0;i<hist.size();i++)
-                    {
-                        if (hist.get(i).getId().equals(idNeed)){
-                            hist.remove(i);
-                            System.out.println("Successfully done");
+                        JsonArray mas = forArray.getJsonArray(0);
+                        forRead.close();
+                        for (int i = 0; i < mas.size(); i++) {
+                            JsonObject tmp = mas.getJsonObject(i);
+                            Date tmpTime = new Date(tmp.getJsonNumber("timestamp").longValue());
+                            Message tempMes = new Message(tmp.getString("author"), tmpTime,
+                                    tmp.getString("message"), tmp.getString("id"));
+                            hist.add(tempMes);
                         }
+                        System.out.println("Successfully done");
+                        request.write("Successfully done"+"\r\n");
+                    } catch (NoSuchFileException e)
+                    {
+                        System.out.println("No such file "+e.getMessage());
+                        request.write("No such file "+e.getMessage()+"\r\n");
                     }
-                    if (count == hist.size())
-                        System.out.println("there is no such message");
-                    break;
-                }
-                case "2":{
-                    Scanner sc = new Scanner(System.in);
-                    System.out.println("input your name");
-                    String name = sc.nextLine();
-                    System.out.println("input your message");
-                    String mes = sc.nextLine();
-                    Date tmpDate = new Date();
-                    Message temp = new Message(name,tmpDate,mes,"random-id-"+((hist.size()+1)));
-                    hist.add(temp);
-                    System.out.println("Successfully added");
                     break;
                 }
                 case "1":{
+                    request.write("1.Save messages in file"+"\r\n");
                     if (!hist.isEmpty()){
                         FileWriter forOut = new FileWriter("history.json");
                         JsonWriter forWrite = Json.createWriter(forOut);
@@ -115,88 +86,115 @@ public class MainClass {
                         }
                         JsonArray arr = wrightArray.build();
                         forWrite.writeArray(arr);
+                        forOut.close();
                         forWrite.close();
                         System.out.println("Successfully done");
-                        break;
-                    }
+                        request.write("Successfully done"+"\r\n");
+                        }
                     else {
                         System.out.println("Firstly download message history");
-                        break;
+                        request.write("Firstly download message history"+"\r\n");
                     }
+                    break;
+                }
+                case "2":{
+                    request.write("2.Add a message"+"\r\n");
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("input your name");
+                    String name = sc.nextLine();
+                    System.out.println("input your message");
+                    String mes = sc.nextLine();
+                    Date tmpDate = new Date();
+                    Message temp = new Message(name,tmpDate,mes,"random-id-"+((hist.size()+1)));
+                    hist.add(temp);
+                    System.out.println("Successfully added");
+                    request.write("Successfully added 1 message"+"\r\n");
+                    break;
+                }
+                case "3":{
+                    if (!hist.isEmpty()){
+                        for (Message i: hist)
+                        {
+                            System.out.println(i.toString());
+                        }
+                    }
+                    else {
+                        System.out.println("empty history");
+                    }
+                    break;
+                }
+                case "4":{
+                    request.write("4.Delete message"+"\r\n");
+                    System.out.println("Input need id");
+                    Scanner sc = new Scanner(System.in);
+                    String  idNeed= sc.next();
+                    boolean ifFind = false;
+                    int num = 0;
+                    for (int i = 0;i<hist.size();i++)
+                    {
+                        if (hist.get(i).getId().equals(idNeed)){
+                            hist.remove(i);
+                            ifFind = true;
+                            num++;
+                        }
+                    }
+                    if (ifFind)
+                        System.out.println("Successfully done");
+                    else System.out.println("there is no such message");
+                    request.write("Deleted "+num+" message(s)"+"\r\n");
+                    break;
                 }
                 case "5":{
+                    request.write("5.Find message by author"+"\r\n");
                     System.out.println("input author");
                     Scanner sc = new Scanner(System.in);
                     String auth = sc.nextLine();
                     boolean ifFind = false;
+                    int count = 0;
                     for (Message iter: hist)
                     {
                         if (iter.getAuthor().equals(auth))
                         {
                             System.out.println(iter.toString());
                             ifFind = true;
+                            count++;
                         }
                     }
                     if (ifFind)
                         System.out.println("Successfully done");
                     else System.out.println("No message from this author");
+                    request.write(count+" message(s) found"+"\r\n");
                     break;
                 }
                 case "6":{
+                    request.write("6.Find message by word"+"\r\n");
                     System.out.println("input word");
                     Scanner sc = new Scanner(System.in);
                     String word = sc.next();
                     boolean ifFind = false;
+                    int count = 0;
                     for (Message it: hist)
                     {
                         if (it.getMessage().contains(word))
                         {
                             System.out.println(it.toString());
                             ifFind = true;
+                            count++;
                         }
                     }
                     if (ifFind)
                         System.out.println("Successfully done");
                     else System.out.println("No message with this word");
-                    break;
-                }
-                case "8":{
-                    Scanner sc = new Scanner(System.in);
-                    boolean ifFind = false;
-                    System.out.println("input start time in format: MM/dd/yyyy HH:mm:ss");
-                    SimpleDateFormat start = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                    Date stDat=null;
-                    try {
-                        stDat = start.parse(sc.nextLine());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("input end time in format: MM/dd/yyyy HH:mm:ss");
-                    SimpleDateFormat end = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                    Date enDat=null;
-                    try {
-                        enDat = end.parse(sc.nextLine());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    for (Message iter: hist)
-                    {
-                        if (iter.getTimestamp().after(stDat) && iter.getTimestamp().before(enDat))
-                        {
-                            System.out.println(iter.toString());
-                            ifFind = true;
-                        }
-                    }
-                    if (ifFind)
-                        System.out.println("Successfully done");
-                    else System.out.println("No message of this period");
+                    request.write(count+" message(s) found"+"\r\n");
                     break;
                 }
                 case "7":{
+                    request.write("7.Find message by regular expression"+"\r\n");
                     Scanner sc = new Scanner(System.in);
                     boolean ifFind = false;
                     System.out.println("input regular expression");
                     String regEx = sc.nextLine();
+                    int count = 0;
                     Pattern pat = Pattern.compile(regEx);
                     for (Message iter: hist)
                     {
@@ -204,14 +202,49 @@ public class MainClass {
                         if (matcher.find())
                         {
                             ifFind = true;
+                            count++;
                             System.out.println(iter.toString());
                         }
                     }
                     if (!ifFind)
                         System.out.println("There are no messages with this regular expression");
+                    request.write(count+" message(s) found"+"\r\n");
+                    break;
+                }
+                case "8":{
+                    request.write("8.Find message by time period"+"\r\n");
+                    Scanner sc = new Scanner(System.in);
+                    boolean ifFind = false;
+                    System.out.println("input start time in format: MM/dd/yyyy HH:mm:ss");
+                    SimpleDateFormat start = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    Date stDat, enDat;
+                    int count = 0;
+                    try {
+                        stDat = start.parse(sc.nextLine());
+                        System.out.println("input end time in format: MM/dd/yyyy HH:mm:ss");
+                        SimpleDateFormat end = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                        enDat = end.parse(sc.nextLine());
+                        for (Message iter: hist)
+                        {
+                            if (iter.getTimestamp().after(stDat) && iter.getTimestamp().before(enDat))
+                            {
+                                System.out.println(iter.toString());
+                                ifFind = true;
+                                count++;
+                            }
+                        }
+                        if (ifFind)
+                            System.out.println("Successfully done");
+                        else System.out.println("No message of this period");
+                        request.write(count+" message(s) found"+"\r\n");
+                    } catch (ParseException e) {
+                        System.out.println("Unparseable date "+e.getMessage());
+                        request.write("Unparseable date "+e.getMessage()+"\r\n");
+                    }
                     break;
                 }
                 case "9":{
+                    request.write("End of program"+"\r\n");
                     System.out.println("End of program");
                     break;
                 }
@@ -222,5 +255,6 @@ public class MainClass {
             }
         }
         in.close();
+        request.close();
     }
 }

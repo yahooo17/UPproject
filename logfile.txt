@@ -1,0 +1,9 @@
+0.Load messages from file
+Successfully done
+5.Find message by author
+1 message(s) found
+6.Find message by word
+1 message(s) found
+8.Find message by time period
+Unparseable date Unparseable date: "5r/34/gg yu.nm/12"
+End of program
