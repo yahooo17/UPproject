@@ -2,16 +2,13 @@ package pack;
 
 import java.util.Date;
 
-/**
- * Created by ASUS on 11.02.2016.
- */
 public class Message {
     private String id;
     private String author;
     private Date timestamp;
     private String message;
 
-    public Message(String author, Date timestamp, String message, String id) {
+    public Message(String id, String author, Date timestamp, String message) {
         this.author = author;
         this.timestamp = timestamp;
         this.message = message;
@@ -52,6 +49,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return  "id : " + id + " | " + author + " | " + timestamp + ": " + message;
+        return "id : " + id + " | " + author + " | " + timestamp + ": " + message;
     }
 }

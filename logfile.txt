@@ -1,9 +1,15 @@
 0.Load messages from file
 Successfully done
-5.Find message by author
+2.Add a message
+Successfully added 1 message
+4.Delete message
+Deleted 1 message(s)
+5.Search message by author
 1 message(s) found
-6.Find message by word
+6.Search message by word
 1 message(s) found
-8.Find message by time period
-Unparseable date Unparseable date: "5r/34/gg yu.nm/12"
+7.Search message by regular expression
+1 message(s) found
+8.Search message by time period
+2 message(s) found
 End of program
