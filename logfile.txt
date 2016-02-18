@@ -9,7 +9,11 @@ Deleted 1 message(s)
 6.Search message by word
 1 message(s) found
 7.Search message by regular expression
-1 message(s) found
-8.Search message by time period
-2 message(s) found
+3 message(s) found
+2.Add a message
+Successfully added 1 message
+4.Delete message
+Deleted 1 message(s)
+1.Save messages in file
+Successfully done
 End of program

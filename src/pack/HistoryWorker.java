@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class HistoryWorker {
     final static String LOG_FILE_NAME = "logfile.txt";
-    ArrayList<Message> history;
+    private ArrayList<Message> history;
 
     public HistoryWorker() throws IOException {
         history = new ArrayList<>();
@@ -153,11 +153,12 @@ public class HistoryWorker {
     public void addMessage(FileWriter writeLog) throws IOException {
         writeLog.write("2.Add a message" + "\r\n");
         Scanner sc = new Scanner(System.in);
+        Date tmpDate = new Date();
+
         System.out.println("input your name");
         String name = sc.nextLine();
         System.out.println("input your message");
         String message = sc.nextLine();
-        Date tmpDate = new Date();
         Message tempMessage = new Message("random-id-" + (new Random()).nextInt(), name, tmpDate, message);
         history.add(tempMessage);
         System.out.println("Successfully added");
@@ -176,11 +177,13 @@ public class HistoryWorker {
 
     public void deleteMessage(FileWriter writeLog) throws IOException {
         writeLog.write("4.Delete message" + "\r\n");
-        System.out.println("Input need id");
         Scanner sc = new Scanner(System.in);
-        String idNeed = sc.next();
+        String idNeed;
         boolean find = false;
         int count = 0;
+
+        System.out.println("Input need id");
+        idNeed = sc.next();
         for (int i = 0; i < history.size(); i++) {
             if (history.get(i).getId().equals(idNeed)) {
                 history.remove(i);
@@ -198,11 +201,13 @@ public class HistoryWorker {
 
     public void searchByAuthor(FileWriter writeLog) throws IOException {
         writeLog.write("5.Search message by author" + "\r\n");
-        System.out.println("input author");
         Scanner sc = new Scanner(System.in);
-        String author = sc.nextLine();
+        String author;
         boolean find = false;
         int count = 0;
+
+        System.out.println("input author");
+        author = sc.nextLine();
         for (Message i : history) {
             if (i.getAuthor().equals(author)) {
                 System.out.println(i.toString());
@@ -220,11 +225,13 @@ public class HistoryWorker {
 
     public void searchByWord(FileWriter writeLog) throws IOException {
         writeLog.write("6.Search message by word" + "\r\n");
-        System.out.println("input word");
         Scanner sc = new Scanner(System.in);
-        String word = sc.next();
+        String word;
         boolean find = false;
         int count = 0;
+
+        System.out.println("input word");
+        word = sc.next();
         for (Message it : history) {
             if (it.getMessage().contains(word)) {
                 System.out.println(it.toString());
@@ -244,9 +251,11 @@ public class HistoryWorker {
         writeLog.write("7.Search message by regular expression" + "\r\n");
         Scanner sc = new Scanner(System.in);
         boolean find = false;
-        System.out.println("input regular expression");
-        String expression = sc.nextLine();
+        String expression;
         int count = 0;
+
+        System.out.println("input regular expression");
+        expression = sc.nextLine();
         Pattern pat = Pattern.compile(expression);
         for (Message it : history) {
             Matcher matcher = pat.matcher(it.getMessage());
