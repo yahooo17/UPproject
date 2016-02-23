@@ -2,18 +2,21 @@
 Successfully done
 2.Add a message
 Successfully added 1 message
+End of program
+0.Load messages from file
+Successfully done
+2.Add a message
+Successfully added 1 message
 4.Delete message
 Deleted 1 message(s)
 5.Search message by author
 1 message(s) found
 6.Search message by word
+0 message(s) found
+6.Search message by word
 1 message(s) found
 7.Search message by regular expression
-3 message(s) found
-2.Add a message
-Successfully added 1 message
-4.Delete message
-Deleted 1 message(s)
-1.Save messages in file
-Successfully done
+0 message(s) found
+8.Search message by time period
+2 message(s) found
 End of program

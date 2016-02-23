@@ -1,86 +1,86 @@
 package pack;
 
 
-import javax.json.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class HistoryWorker {
     final static String LOG_FILE_NAME = "logfile.txt";
-    private ArrayList<Message> history;
+    private FileWriter log;
+    private BufferedReader read;
+    private History history;
 
-    public HistoryWorker() throws IOException {
-        history = new ArrayList<>();
-        String choice = "";
-        Scanner in = new Scanner(System.in);
-        FileWriter clearFile = new FileWriter(LOG_FILE_NAME, false);
-        clearFile.write("");
-        FileWriter writeLog = new FileWriter(LOG_FILE_NAME, true);
-        showVariants();
-        while (!choice.equals("9")) {
-            choice = in.next();
-            switch (choice) {
-                case "0": {
-                    loadMessages(writeLog);
-                    break;
-                }
-                case "1": {
-                    saveMessages(writeLog);
-                    break;
-                }
-                case "2": {
-                    addMessage(writeLog);
-                    break;
-                }
-                case "3": {
-                    showHistory();
-                    break;
-                }
-                case "4": {
-                    deleteMessage(writeLog);
-                    break;
-                }
-                case "5": {
-                    searchByAuthor(writeLog);
-                    break;
-                }
-                case "6": {
-                    searchByWord(writeLog);
-                    break;
-                }
-                case "7": {
-                    searchByExpression(writeLog);
-                    break;
-                }
-                case "8": {
-                    searchByTime(writeLog);
-                    break;
-                }
-                case "9": {
-                    writeLog.write("End of program" + "\r\n");
-                    System.out.println("End of program");
-                    break;
-                }
-                default: {
-                    System.out.println("You need number from 0 to 9");
-                    break;
+    public HistoryWorker() {
+        history = new History();
+        try {
+            log = new FileWriter(LOG_FILE_NAME, true);
+            read = new BufferedReader(new InputStreamReader(System.in));
+            String choice = "";
+            showVariants();
+            while (!choice.equals("9")) {
+                choice = read.readLine();
+                switch (choice) {
+                    case "0": {
+                        loadMessages();
+                        break;
+                    }
+                    case "1": {
+                        saveMessages();
+                        break;
+                    }
+                    case "2": {
+                        addMessage();
+                        break;
+                    }
+                    case "3": {
+                        history.showHistory();
+                        break;
+                    }
+                    case "4": {
+                        deleteMessage();
+                        break;
+                    }
+                    case "5": {
+                        searchByAuthor();
+                        break;
+                    }
+                    case "6": {
+                        searchByWord();
+                        break;
+                    }
+                    case "7": {
+                        searchByExpression();
+                        break;
+                    }
+                    case "8": {
+                        searchByTime();
+                        break;
+                    }
+                    case "9": {
+                        log.write("End of program" + "\r\n");
+                        System.out.println("End of program");
+                        break;
+                    }
+                    default: {
+                        System.out.println("You need number from 0 to 9");
+                        break;
+                    }
                 }
             }
+            read.close();
+            log.close();
+        } catch (IOException e) {
+            System.out.println("IOException " + e.getMessage());
         }
-        in.close();
-        writeLog.close();
     }
 
     public void showVariants() {
@@ -97,210 +97,134 @@ public class HistoryWorker {
         System.out.println("9.End of program");
     }
 
-    public void loadMessages(FileWriter writeLog) throws IOException {
-        writeLog.write("0.Load messages from file" + "\r\n");
-        history.clear();
+    public void loadMessages() throws IOException {
+        log.write("0.Load messages from file" + "\r\n");
         try {
-            String JSONData = Files.readAllLines(Paths.get("history.json")).toString();
-            JsonReader forRead = Json.createReader(new StringReader(JSONData));
-            JsonArray forArray = forRead.readArray();
+            JsonArray forArray = getJson();
             if (forArray.size() == 0) {
                 System.out.println("Your history is empty");
                 return;
             }
             JsonArray array = forArray.getJsonArray(0);
-            forRead.close();
-            for (int i = 0; i < array.size(); i++) {
-                JsonObject tmpObject = array.getJsonObject(i);
-                Date tmpTime = new Date(tmpObject.getJsonNumber("timestamp").longValue());
-                Message tempMessage = new Message(tmpObject.getString("id"), tmpObject.getString("author"), tmpTime,
-                        tmpObject.getString("message"));
-                history.add(tempMessage);
-            }
-
+            history.loadMessages(array);
             System.out.println("Successfully done");
-            writeLog.write("Successfully done" + "\r\n");
+            log.write("Successfully done" + "\r\n");
         } catch (NoSuchFileException e) {
             System.out.println("No such file " + e.getMessage());
-            writeLog.write("No such file " + e.getMessage() + "\r\n");
+            log.write("No such file " + e.getMessage() + "\r\n");
         }
     }
 
-    public void saveMessages(FileWriter writeLog) throws IOException {
-        writeLog.write("1.Save messages in file" + "\r\n");
+    public JsonArray getJson() throws IOException {
+        String JSONData = Files.readAllLines(Paths.get("history.json")).toString();
+        JsonReader forRead = Json.createReader(new StringReader(JSONData));
+        JsonArray forArray = forRead.readArray();
+        forRead.close();
+        return forArray;
+    }
+
+    public void saveMessages() throws IOException {
+        log.write("1.Save messages in file" + "\r\n");
         if (!history.isEmpty()) {
-            FileWriter out = new FileWriter("history.json");
-            JsonWriter writeHistory = Json.createWriter(out);
-            JsonArrayBuilder wrightArray = Json.createArrayBuilder();
-            for (Message aHistory : history) {
-                wrightArray.add(Json.createObjectBuilder().add("id", aHistory.getId())
-                        .add("author", aHistory.getAuthor())
-                        .add("timestamp", aHistory.getTimestamp().getTime())
-                        .add("message", aHistory.getMessage()).build());
-            }
-            JsonArray arr = wrightArray.build();
-            writeHistory.writeArray(arr);
-            out.close();
-            writeHistory.close();
+            JsonArray arr = history.createArray();
+            history.saveMessages(arr);
             System.out.println("Successfully done");
-            writeLog.write("Successfully done" + "\r\n");
+            log.write("Successfully done" + "\r\n");
         } else {
             System.out.println("Firstly download message history");
-            writeLog.write("Firstly download message history" + "\r\n");
+            log.write("Firstly download message history" + "\r\n");
         }
     }
 
-    public void addMessage(FileWriter writeLog) throws IOException {
-        writeLog.write("2.Add a message" + "\r\n");
-        Scanner sc = new Scanner(System.in);
+    public void addMessage() throws IOException {
+        log.write("2.Add a message" + "\r\n");
         Date tmpDate = new Date();
 
         System.out.println("input your name");
-        String name = sc.nextLine();
+        String name = read.readLine();
         System.out.println("input your message");
-        String message = sc.nextLine();
-        Message tempMessage = new Message("random-id-" + (new Random()).nextInt(), name, tmpDate, message);
-        history.add(tempMessage);
+        String message = read.readLine();
+        history.addMessage(new Message("random-id-" + (new Random()).nextInt(), name, tmpDate, message));
         System.out.println("Successfully added");
-        writeLog.write("Successfully added 1 message" + "\r\n");
+        log.write("Successfully added 1 message" + "\r\n");
     }
 
-    public void showHistory() {
-        if (!history.isEmpty()) {
-            for (Message i : history) {
-                System.out.println(i.toString());
-            }
-        } else {
-            System.out.println("empty history");
-        }
-    }
-
-    public void deleteMessage(FileWriter writeLog) throws IOException {
-        writeLog.write("4.Delete message" + "\r\n");
-        Scanner sc = new Scanner(System.in);
-        String idNeed;
-        boolean find = false;
-        int count = 0;
+    public void deleteMessage() throws IOException {
+        log.write("4.Delete message" + "\r\n");
+        int count;
 
         System.out.println("Input need id");
-        idNeed = sc.next();
-        for (int i = 0; i < history.size(); i++) {
-            if (history.get(i).getId().equals(idNeed)) {
-                history.remove(i);
-                find = true;
-                count++;
-            }
-        }
-        if (find) {
+        count = history.deleteMessage(read.readLine());
+        if (count != 0) {
             System.out.println("Successfully done");
         } else {
             System.out.println("there is no such message");
         }
-        writeLog.write("Deleted " + count + " message(s)" + "\r\n");
+        log.write("Deleted " + count + " message(s)" + "\r\n");
     }
 
-    public void searchByAuthor(FileWriter writeLog) throws IOException {
-        writeLog.write("5.Search message by author" + "\r\n");
-        Scanner sc = new Scanner(System.in);
-        String author;
-        boolean find = false;
-        int count = 0;
-
+    public void searchByAuthor() throws IOException {
+        log.write("5.Search message by author" + "\r\n");
+        int count;
         System.out.println("input author");
-        author = sc.nextLine();
-        for (Message i : history) {
-            if (i.getAuthor().equals(author)) {
-                System.out.println(i.toString());
-                find = true;
-                count++;
-            }
-        }
-        if (find) {
+        count = history.searchByAuthor(read.readLine());
+
+        if (count != 0) {
             System.out.println("Successfully done");
         } else {
             System.out.println("No message from this author");
         }
-        writeLog.write(count + " message(s) found" + "\r\n");
+        log.write(count + " message(s) found" + "\r\n");
     }
 
-    public void searchByWord(FileWriter writeLog) throws IOException {
-        writeLog.write("6.Search message by word" + "\r\n");
-        Scanner sc = new Scanner(System.in);
-        String word;
-        boolean find = false;
-        int count = 0;
+    public void searchByWord() throws IOException {
+        log.write("6.Search message by word" + "\r\n");
+        int count;
 
         System.out.println("input word");
-        word = sc.next();
-        for (Message it : history) {
-            if (it.getMessage().contains(word)) {
-                System.out.println(it.toString());
-                find = true;
-                count++;
-            }
-        }
-        if (find) {
+        count = history.searchByWord(read.readLine());
+        if (count != 0) {
             System.out.println("Successfully done");
         } else {
             System.out.println("No message with this word");
         }
-        writeLog.write(count + " message(s) found" + "\r\n");
+        log.write(count + " message(s) found" + "\r\n");
     }
 
-    public void searchByExpression(FileWriter writeLog) throws IOException {
-        writeLog.write("7.Search message by regular expression" + "\r\n");
-        Scanner sc = new Scanner(System.in);
-        boolean find = false;
-        String expression;
-        int count = 0;
+    public void searchByExpression() throws IOException {
+        log.write("7.Search message by regular expression" + "\r\n");
+        int count;
 
         System.out.println("input regular expression");
-        expression = sc.nextLine();
-        Pattern pat = Pattern.compile(expression);
-        for (Message it : history) {
-            Matcher matcher = pat.matcher(it.getMessage());
-            if (matcher.find()) {
-                find = true;
-                count++;
-                System.out.println(it.toString());
-            }
-        }
-        if (!find) {
+        count = history.searchByExpression(read.readLine());
+        if (count == 0) {
             System.out.println("There are no messages with this regular expression");
         }
-        writeLog.write(count + " message(s) found" + "\r\n");
+        log.write(count + " message(s) found" + "\r\n");
     }
 
-    public void searchByTime(FileWriter writeLog) throws IOException {
-        writeLog.write("8.Search message by time period" + "\r\n");
-        Scanner sc = new Scanner(System.in);
-        boolean find = false;
-        System.out.println("input start time in format: MM/dd/yyyy HH:mm:ss");
+    public void searchByTime() throws IOException {
+        log.write("8.Search message by time period" + "\r\n");
         SimpleDateFormat startTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat endTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date startDate;
         Date endDate;
-        int count = 0;
+        int count;
+        System.out.println("input start time in format: MM/dd/yyyy HH:mm:ss");
         try {
-            startDate = startTime.parse(sc.nextLine());
+            startDate = startTime.parse(read.readLine());
             System.out.println("input end time in format: MM/dd/yyyy HH:mm:ss");
-            SimpleDateFormat endTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            endDate = endTime.parse(sc.nextLine());
-            for (Message it : history) {
-                if (it.getTimestamp().after(startDate) && it.getTimestamp().before(endDate)) {
-                    System.out.println(it.toString());
-                    find = true;
-                    count++;
-                }
-            }
-            if (find) {
+            endDate = endTime.parse(read.readLine());
+            count = history.searchByTime(startDate, endDate);
+            if (count != 0) {
                 System.out.println("Successfully done");
             } else {
                 System.out.println("No message of this period");
             }
-            writeLog.write(count + " message(s) found" + "\r\n");
+            log.write(count + " message(s) found" + "\r\n");
         } catch (ParseException e) {
             System.out.println("Unparseable date " + e.getMessage());
-            writeLog.write("Unparseable date " + e.getMessage() + "\r\n");
+            log.write("Unparseable date " + e.getMessage() + "\r\n");
         }
     }
 }

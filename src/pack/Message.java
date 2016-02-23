@@ -1,5 +1,6 @@
 package pack;
 
+import javax.json.JsonObject;
 import java.util.Date;
 
 public class Message {
@@ -15,36 +16,27 @@ public class Message {
         this.id = id;
     }
 
-    public String getId() {
-        return id;
+    public Message(JsonObject temp) {
+        this.author = temp.getString("author");
+        this.timestamp = new Date(temp.getJsonNumber("timestamp").longValue());
+        this.message = temp.getString("message");
+        this.id = temp.getString("id");
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     @Override
