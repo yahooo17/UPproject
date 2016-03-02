@@ -7,18 +7,39 @@
 </head>
 <body>
     <div class="upper-part">
-        <h1>Chat</h1>
+        <h1 class="name-chat">Chat</h1>
         <img class="alarm" src="alarm.png" alt="Connection problems">
         <input class="edit-name" type="text" placeholder="username">
         <button class="changeUsername" type="button">Change</button>
     </div>
     <div class="main-part">
-        <div class="chat-messages"></div>
+        <div class="chat-messages">
+            <div class="myMessage">
+                <div class ="info">
+                    Victor 12:35
+                    <button  type = "button" class = "delButton"></button>
+                    <button  type = "button" class = "editButton"></button>
+                </div>
+                <div class ="Message"> Hello!Do you know how has Chelsea played with Norwich?</div>
+            </div>
+            <div class="alienMessage">
+                <div class ="alien-info">
+                    Anonymous 12:38
+                </div>
+                <i class ="Message"> Hi!Chelsea won 2-1</i>
+            </div>
+            <div class="myMessage">
+                <div class ="info">
+                    Victor 12:41
+                    <button   type = "button" class = "delButton"></button>
+                    <button  type = "button" class = "editButton"></button>
+                </div>
+                <div class ="Message">Oh, thanks a lot! </div>
+            </div>
+        </div>
         <textarea name="msg-area" id="msg-input" placeholder="Type message"></textarea>
         <button id="send">Send</button>
-        <button id="redact">Redact</button>
-        <button id="delete">Delete</button>
     </div>
-    <footer id="footer">Victor Reut, BSU, 2016</footer>
+    <div class="low-part">Victor Reut, BSU, 2016</div>
 </body>
 </html>

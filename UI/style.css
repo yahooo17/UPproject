@@ -5,9 +5,11 @@ html,body{
     width:100%;
     background-color: ivory;
 }
-body{
-    min-height: 100%;
-    position: relative;
+.all{
+    word-wrap: break-word;
+    max-width: 1900px;
+    min-width: 300px;
+    font-size: 15px;
 }
 .upper-part {
     border: none;
@@ -19,7 +21,7 @@ body{
     height: 80px;
     width: 98%;
 }
-h1 {
+.name-chat {
     color: white;
     margin-top: 1%;
     margin-left: 2%;
@@ -32,7 +34,7 @@ h1 {
     vertical-align: 70%;
 }
 img.alarm {
-    margin-left: 33%;
+    margin-left: 37%;
     margin-top: 0;
     position: absolute;
     height: 80px;
@@ -95,31 +97,17 @@ textarea{
     resize: none;
     padding: 5px;
 }
-#send, #redact, #delete
-{
+#send{
     background-color: blue;
     color:white;
     border-radius: 10px;
     position: absolute;
     display: inline-block;
-}
-#send{
     height: 80px;
-    width:15%;
+    width:28%;
     margin-left: 0;
 }
-#redact{
-    height: 40px;
-    width:13%;
-    margin-left: 15%;
-}
-#delete{
-    height: 40px;
-    width:13%;
-    margin-left: 15%;
-    margin-top: 40px;
-}
-footer {
+.low-part {
     box-sizing: border-box;
     position: fixed;
     margin-right: 1%;
@@ -133,4 +121,31 @@ footer {
     height: 22px;
     width: 98%;
     border-radius: 5px 5px 0 0;
+}
+.myMessage {
+    word-wrap: break-word;
+    margin: 6px 51% 6px 6px;
+    padding: 4px 4px 4px 4px;
+    background-color: rgba(127,127,127,0.3);
+}
+.delButton {
+    width: 20px;
+    height: 20px;
+    background-image: url(delete.png);
+    background-size: cover;
+    float: right;
+}
+.editButton {
+    width: 20px;
+    height: 20px;
+    background-image: url(redact.png);
+    background-size: cover;
+    float: right;
+}
+.alienMessage {
+    word-wrap: break-word;
+    margin: 6px 6px 6px 51%;
+    padding: 4px 4px 4px 4px;
+    text-align: left;
+    background-color: rgba(127,127,127,0.3);
 }
