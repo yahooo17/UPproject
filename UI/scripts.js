@@ -1,9 +1,10 @@
 (function () {
     'use strict';
     let historyList = [{'name': 'Victor', 'message': 'Hello!Do you know how has Chelsea played with Norwich?', 'id': uniqueId(), 'time': '12:35:44'},
-                        {'name': 'Anonymous', 'message': 'Hi!Chelsea won 2-1', 'id': uniqueId(), 'time': '12:38:12'},
-                        {'name': 'Victor', 'message': 'Oh, thanks a lot!', 'id': uniqueId(), 'time': '12:41:03'}];
+                         {'name': 'Anonymous', 'message': 'Hi!Chelsea won 2-1', 'id': uniqueId(), 'time': '12:38:12'},
+                         {'name': 'Victor', 'message': 'Oh, thanks a lot!', 'id': uniqueId(), 'time': '12:41:03'}];
     let currentUser = 'Victor';
+    let editFlag = false;
     window.addEventListener('load', ()=> {
         loadHistory();
         let loginButton = document.querySelector('.changeUsername');
@@ -55,10 +56,13 @@
         editButtons
             .forEach((button) => button
                 .addEventListener('click', (event) => {
-                    let editOne = event.target.parentElement.parentElement.getElementsByClassName('message')[0];
-                    inputMessage.value = editOne.innerText;
-                    let saveChanges = createTempButtons();
-                    saveChanges.addEventListener('click', () => saveEdit(editOne));
+                    if (editFlag == false) {
+                        editFlag = true;
+                        let editOne = event.target.parentElement.parentElement.getElementsByClassName('message')[0];
+                        inputMessage.value = editOne.innerText;
+                        let saveChanges = createTempButtons();
+                        saveChanges.addEventListener('click', () => saveEdit(editOne));
+                    }
                 }));
     }
 
@@ -80,17 +84,18 @@
 
     function cancelChanges() {
         let editData = document.querySelector('#msg-input');
-        let changes = editData.value;
         editData.value = '';
         let sendButton = document.querySelector('#send');
         sendButton.disabled = false;
         let destroyButtons = [].slice.call(document.querySelectorAll('.tempButton'));
         destroyButtons.forEach((button) => button.remove());
-        return changes;
+        editFlag = false;
     }
 
     function saveEdit(editOne) {
-        editOne.innerText = cancelChanges();
+        let editData = document.querySelector('#msg-input');
+        editOne.innerText = editData.value;
+        cancelChanges();
         var elId = editOne.parentElement.id;
         for (let i = 0; i < historyList.length; i++) {
             if (historyList[i].id == elId) {
