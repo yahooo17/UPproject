@@ -1,10 +1,11 @@
 (function () {
     'use strict';
-    let historyList = [{'name': 'Victor', 'message': 'Hello!Do you know how has Chelsea played with Norwich?', 'id': uniqueId(), 'time': '12:35:44'},
-                         {'name': 'Anonymous', 'message': 'Hi!Chelsea won 2-1', 'id': uniqueId(), 'time': '12:38:12'},
-                         {'name': 'Victor', 'message': 'Oh, thanks a lot!', 'id': uniqueId(), 'time': '12:41:03'}];
+    let mes = restore();
+    let historyList = [];
     let currentUser = 'Victor';
     let editFlag = false;
+    let chat;
+    createHistoryList();
     window.addEventListener('load', ()=> {
         loadHistory();
         let loginButton = document.querySelector('.changeUsername');
@@ -12,6 +13,15 @@
         let sendButton = document.querySelector('#send');
         sendButton.addEventListener('click', sendMessage);
     });
+
+    function createHistoryList() {
+        if (mes != null) {
+            for (let i = 0; i < mes.length; i++) {
+                let data = createMessage(mes[i].name, mes[i].message, mes[i].edit);
+                historyList.push(data);
+            }
+        }
+    }
 
     function changeUsername() {
         let userInput = document.querySelector('.edit-name');
@@ -35,6 +45,10 @@
         }
     }
 
+    function updateScroll() {
+        chat.scrollTop = chat.scrollHeight;
+    }
+
     function deleteMessage() {
         let deleteButtons = [].slice.call(document.querySelectorAll('.delButton'));
         deleteButtons
@@ -43,10 +57,12 @@
                     let delOne = event.target.parentElement;
                     for (let i = 0; i < historyList.length; i++) {
                         if (historyList[i].id == delOne.id) {
-                            historyList.splice(i, 1);
+                            historyList[i].message = "DELETED";
                         }
                     }
                     delOne.parentElement.remove();
+                    store(historyList);
+                    updateScroll();
                 }));
     }
 
@@ -96,18 +112,20 @@
         let editData = document.querySelector('#msg-input');
         editOne.innerText = editData.value;
         cancelChanges();
-        var elId = editOne.parentElement.id;
         for (let i = 0; i < historyList.length; i++) {
-            if (historyList[i].id == elId) {
+            if (historyList[i].id == editOne.parentElement.id) {
                 historyList[i].message = editOne.innerText;
+                historyList[i].edit = "was edited";
             }
         }
+        store(historyList);
+        updateScroll();
     }
 
     function sendMessage() {
         let inputMessage = document.querySelector('#msg-input');
         if (inputMessage.value != '') {
-            let data = createMessage(currentUser, inputMessage.value);
+            let data = createMessage(currentUser, inputMessage.value, '');
             historyList.push(data);
             inputMessage.value = '';
             let addMessage = document.createElement('div');
@@ -117,15 +135,18 @@
             chat.appendChild(addMessage);
             deleteMessage();
             editMessage();
+            store(historyList);
+            updateScroll();
         }
     }
 
-    function createMessage(name_, msg_) {
+    function createMessage(name_, msg_, _edit) {
         return {
             name: name_,
             message: msg_,
             id: uniqueId(),
-            time: new Date().toLocaleTimeString()
+            time: new Date().toLocaleTimeString(),
+            edit: _edit
         }
     }
 
@@ -143,21 +164,39 @@
     }
 
     function loadHistory() {
-        let chat = document.querySelector('.chat-messages');
+        chat = document.querySelector('.chat-messages');
         for (let i = 0; i < historyList.length; i++) {
             let addMessage = document.createElement('div');
-            if (historyList[i].name == currentUser) {
+            if (historyList[i].name == currentUser && historyList[i].message != "DELETED") {
                 addMessage.className = 'myMessage';
                 addMessage.innerHTML = formMyMessage(historyList[i]);
             }
-            else {
+            else if (historyList[i].name != currentUser) {
                 addMessage.className = 'alienMessage';
-                addMessage.innerHTML = `<div class ="alien-info">${historyList[i].name} ${historyList[i].time}
+                addMessage.innerHTML = `<div class ="alien-info">${historyList[i].name} ${historyList[i].time} ${historyList[i].edit}
                                         </div><i class ="message"> ${historyList[i].message}</i>`;
             }
             chat.appendChild(addMessage);
         }
+        updateScroll();
         deleteMessage();
         editMessage();
+    }
+
+    function store(listToSave) {
+        if (typeof(Storage) == "undefined") {
+            alert('localStorage is not accessible');
+            return;
+        }
+        localStorage.setItem("HistoryList", JSON.stringify(listToSave));
+    }
+
+    function restore() {
+        if (typeof(Storage) == "undefined") {
+            alert('localStorage is not accessible');
+            return;
+        }
+        let item = localStorage.getItem("HistoryList");
+        return item && JSON.parse(item);
     }
 }());
