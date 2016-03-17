@@ -1,0 +1,4 @@
+
+2016-03-17 16:50:13.898: [by.bsu.up.chat.server.ServerHandler] Received new message from user: first message
+2016-03-17 16:50:37.401: [by.bsu.up.chat.server.ServerHandler] Received new message from user: try post
+2016-03-17 16:51:01.044: [by.bsu.up.chat.server.ServerHandler] Received new message from user: well done

@@ -1,0 +1,4 @@
+2016-03-17 16:50:14.865: [by.bsu.up.chat.client.Client] Message from server: first message
+2016-03-17 16:50:37.961: [by.bsu.up.chat.client.Client] Message from server: try post
+2016-03-17 16:51:01.064: [by.bsu.up.chat.client.Client] Message from server: well done
+2016-03-17 16:52:16.325: [by.bsu.up.chat.client.Client] Connection error. Disconnecting...
