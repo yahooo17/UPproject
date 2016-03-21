@@ -2,12 +2,13 @@
     'use strict';
     let mes = restore();
     let historyList = [];
-    let currentUser = 'Victor';
+    let currentUser = loadUsername();
     let editFlag = false;
     let chat;
     createHistoryList();
     window.addEventListener('load', ()=> {
         loadHistory();
+        document.querySelector(".userHolder").innerText = currentUser;
         let loginButton = document.querySelector('.changeUsername');
         loginButton.addEventListener('click', changeUsername);
         let sendButton = document.querySelector('#send');
@@ -23,11 +24,22 @@
         }
     }
 
+    function loadUsername(){
+        let name = restoreUsername();
+        if (name != null){
+            return name;
+        }
+        else {
+            return '';
+        }
+    }
+
     function changeUsername() {
         let userInput = document.querySelector('.edit-name');
         currentUser = userInput.value;
         updateUser();
         userInput.value = '';
+        storeUsername();
     }
 
     function updateUser() {
@@ -198,5 +210,21 @@
         }
         let item = localStorage.getItem("HistoryList");
         return item && JSON.parse(item);
+    }
+
+    function restoreUsername() {
+        if (typeof(Storage) == "undefined") {
+            alert('localStorage is not accessible');
+            return;
+        }
+        return localStorage.getItem("Username");
+    }
+
+    function storeUsername() {
+        if (typeof(Storage) == "undefined") {
+            alert('localStorage is not accessible');
+            return;
+        }
+        localStorage.setItem("Username", currentUser);
     }
 }());
