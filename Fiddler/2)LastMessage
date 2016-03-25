@@ -1,0 +1,15 @@
+GET http://192.168.0.101:999/chat?token=TN33EN   HTTP/1.1
+Host: 192.168.0.101:999
+Content-Length: 51
+
+Host: 192.168.0.101:999
+
+User-Agent: Composer
+
+
+HTTP/1.1 200 OK
+Date: Tue, 22 Mar 2016 20:56:17 GMT
+Access-control-allow-origin: *
+Content-length: 46
+
+{"messages":["call of duty"],"token":"TN35EN"}
