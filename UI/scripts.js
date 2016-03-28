@@ -19,6 +19,7 @@
         if (mes != null) {
             for (let i = 0; i < mes.length; i++) {
                 let data = createMessage(mes[i].name, mes[i].message, mes[i].edit);
+                data.time = mes[i].time;
                 historyList.push(data);
             }
         }
@@ -72,7 +73,7 @@
                             historyList[i].message = "DELETED";
                         }
                     }
-                    delOne.parentElement.remove();
+                    delOne.innerText = "DELETED";
                     store(historyList);
                     updateScroll();
                 }));
@@ -128,6 +129,8 @@
             if (historyList[i].id == editOne.parentElement.id) {
                 historyList[i].message = editOne.innerText;
                 historyList[i].edit = "was edited";
+                let forEdit = editOne.parentElement.getElementsByClassName('edit')[0];
+                forEdit.innerText = "was edited";
             }
         }
         store(historyList);
@@ -169,9 +172,14 @@
     }
 
     function formMyMessage(data) {
-        return `<div id=${data.id}>${data.name} ${data.time}
+        return `<div id=${data.id}>${data.name} ${data.time} <div class="edit">${data.edit}</div>
                 <button class="delButton"></button>
                 <button class="editButton"></button>
+                <div class="message">${data.message}</div></div>`;
+    }
+
+    function formDeletedMessage(data){
+        return `<div id=${data.id}>${data.name} ${data.time}
                 <div class="message">${data.message}</div></div>`;
     }
 
@@ -179,9 +187,14 @@
         chat = document.querySelector('.chat-messages');
         for (let i = 0; i < historyList.length; i++) {
             let addMessage = document.createElement('div');
-            if (historyList[i].name == currentUser && historyList[i].message != "DELETED") {
+            if (historyList[i].name == currentUser) {
                 addMessage.className = 'myMessage';
-                addMessage.innerHTML = formMyMessage(historyList[i]);
+                if (historyList[i].message != "DELETED") {
+                    addMessage.innerHTML = formMyMessage(historyList[i]);
+                }
+                else if (historyList[i].message == "DELETED"){
+                    addMessage.innerHTML = formDeletedMessage(historyList[i]);
+                }
             }
             else if (historyList[i].name != currentUser) {
                 addMessage.className = 'alienMessage';

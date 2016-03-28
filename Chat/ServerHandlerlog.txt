@@ -20,3 +20,8 @@
 2016-03-22 23:04:44.086: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
 2016-03-22 23:05:24.411: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Hello, server!
 
+2016-03-28 18:03:10.423: [by.bsu.up.chat.server.ServerHandler] Received new message from user: number four
+2016-03-28 18:03:57.323: [by.bsu.up.chat.server.ServerHandler] Received new message from user: one more message
+2016-03-28 18:04:15.354: [by.bsu.up.chat.server.ServerHandler] Received new message from user: loading time
+2016-03-28 18:56:35.074: [by.bsu.up.chat.server.ServerHandler] Received new message from user: try again
+2016-03-28 18:56:49.889: [by.bsu.up.chat.server.ServerHandler] Received new message from user: are you ready

@@ -69,3 +69,44 @@
 2016-03-23 18:20:32.41: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.103:999/chat?token={token}
 2016-03-23 18:20:32.41: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.103:999/chat provide body json in format {"message" : "{message}"}
 
+2016-03-28 17:58:45.84: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 17:58:46.649: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 17:58:46.727: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 17:58:46.728: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:00:43.924: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:09:14.818: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 18:09:14.908: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 18:09:14.918: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 18:09:14.918: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:09:32.806: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:14:10.776: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 18:14:10.873: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 18:14:10.883: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 18:14:10.934: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:14:29.018: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:15:08.883: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:16:19.596: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:16:51.493: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:20:13.965: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:20:34.557: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:27:25.665: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 18:27:25.775: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 18:27:25.785: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 18:27:25.786: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:27:48.328: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:28:30.27: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:29:07.305: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 18:29:07.408: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 18:29:07.418: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 18:29:07.418: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:29:18.328: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:31:52.55: [by.bsu.up.chat.Launcher] Starting server on localhost...
+2016-03-28 18:31:52.651: [by.bsu.up.chat.Launcher] Server started.
+2016-03-28 18:31:52.662: [by.bsu.up.chat.Launcher] Get list of messages: GET http://192.168.0.104:999/chat?token={token}
+2016-03-28 18:31:52.663: [by.bsu.up.chat.Launcher] Send message: POST http://192.168.0.104:999/chat provide body json in format {"message" : "{message}"}
+2016-03-28 18:32:24.908: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:32:41.253: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:36:05.288: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+2016-03-28 18:42:12.616: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
+2016-03-28 18:45:34.535: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
+

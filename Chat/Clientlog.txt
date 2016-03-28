@@ -22,3 +22,12 @@
 2016-03-22 23:42:32.318: [by.bsu.up.chat.client.Client] Connection error. Disconnecting...
 
 
+2016-03-28 18:03:10.891: [by.bsu.up.chat.client.Client] Message from server: number four
+2016-03-28 18:03:58.026: [by.bsu.up.chat.client.Client] Message from server: one more message
+2016-03-28 18:04:16.073: [by.bsu.up.chat.client.Client] Message from server: loading time
+2016-03-28 18:15:09.018: [by.bsu.up.chat.client.Client] Could not parse message
+2016-03-28 18:15:10.092: [by.bsu.up.chat.client.Client] Could not parse message
+2016-03-28 18:15:11.099: [by.bsu.up.chat.client.Client] Could not parse message
+2016-03-28 18:15:12.106: [by.bsu.up.chat.client.Client] Could not parse message
+2016-03-28 18:15:13.121: [by.bsu.up.chat.client.Client] Could not parse message
+
