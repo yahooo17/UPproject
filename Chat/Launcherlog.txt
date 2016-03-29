@@ -110,3 +110,8 @@
 2016-03-28 18:42:12.616: [by.bsu.up.chat.Launcher] Connection to server by address localhost:8888
 2016-03-28 18:45:34.535: [by.bsu.up.chat.Launcher] Connection to server by address localhost:999
 
+2016-03-29 14:04:04.693: [by.bsu.up.chat.Launcher] Incorrect port specified.
+2016-03-29 14:04:47.379: [by.bsu.up.chat.Launcher] Invalid command. Please see help
+2016-03-29 14:04:47.395: [by.bsu.up.chat.Launcher] Connection to server by address http://10.160.60.105:8888
+2016-03-29 14:05:19.307: [by.bsu.up.chat.Launcher] Connection to server by address 10.160.60.105:8888
+2016-03-29 14:07:49.947: [by.bsu.up.chat.Launcher] Connection to server by address 10.160.60.105:8888
