@@ -34,31 +34,4 @@
 2016-03-29 14:05:19.665: [by.bsu.up.chat.client.Client] Message from server: number four
 2016-03-29 14:05:19.665: [by.bsu.up.chat.client.Client] Message from server: one more message
 2016-03-29 14:05:19.665: [by.bsu.up.chat.client.Client] Message from server: loading time
-2016-03-29 14:05:20.695: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:21.725: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:22.739: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:23.753: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:24.756: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:25.77: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:26.784: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:27.787: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:28.801: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:29.815: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:30.829: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:31.843: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:32.857: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:33.866: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:34.942: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:35.954: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:36.968: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:37.969: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:38.983: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:39.997: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:41.011: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:42.025: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:43.039: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:05:44.043: [by.bsu.up.chat.client.Client] Could not parse message
-2016-03-29 14:07:50.04: [by.bsu.up.chat.client.Client] Message from server: number four
-2016-03-29 14:07:50.04: [by.bsu.up.chat.client.Client] Message from server: one more message
-2016-03-29 14:07:50.04: [by.bsu.up.chat.client.Client] Message from server: loading time
 

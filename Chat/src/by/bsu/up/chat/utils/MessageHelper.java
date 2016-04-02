@@ -1,14 +1,22 @@
 package by.bsu.up.chat.utils;
 
+import by.bsu.up.chat.Constants;
 import by.bsu.up.chat.InvalidTokenException;
+import by.bsu.up.chat.common.models.Message;
 import by.bsu.up.chat.logging.Logger;
 import by.bsu.up.chat.logging.impl.Log;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.json.JsonObject;
+import javax.json.stream.JsonParser;
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MessageHelper {
 
@@ -71,11 +79,31 @@ public class MessageHelper {
     }
 
     @SuppressWarnings("unchecked")      //allows to suppress warning of unchecked parameter type for generics
-    public static String buildServerResponseBody(List<String> messages, int lastPosition) {
+    public static String buildServerResponseBody(List<Message> messages, int lastPosition) {
+        JSONArray array = getJsonArrayOfMessages(messages);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(MESSAGE_PART_ALL_MSG, messages);
+        jsonObject.put(MESSAGE_PART_ALL_MSG, array);
         jsonObject.put(MESSAGE_PART_TOKEN, buildToken(lastPosition));
         return jsonObject.toJSONString();
+    }
+    @SuppressWarnings("unchecked")
+    private static JSONArray getJsonArrayOfMessages(List<Message> messages) {
+
+        // Java * approach
+        /*
+            List<JSONObject> jsonMessages = messages.stream()
+                    .map(MessageHelper::messageToJSONObject)
+                    .collect(Collectors.toList());
+        */
+
+        List<JSONObject> jsonMessages = new LinkedList<>();
+        for (Message message : messages) {
+            jsonMessages.add(messageToJSONObject(message));
+        }
+
+        JSONArray array = new JSONArray();
+        array.addAll(jsonMessages);
+        return array;
     }
 
     @SuppressWarnings("unchecked")
@@ -85,8 +113,21 @@ public class MessageHelper {
         return jsonObject.toJSONString();
     }
 
-    public static String getClientMessage(InputStream inputStream) throws ParseException {
-        return (String) stringToJsonObject(inputStreamToString(inputStream)).get(MESSAGE_PART_SINGLE_MSG);
+    public static Message getClientMessage(InputStream inputStream,boolean isPost) throws ParseException {
+        JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
+        Message message = new Message();
+        String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
+        //long timestamp = Long.getLong(jsonObject.get(Constants.Message.FIELD_TIMESTAMP).toString());
+        String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
+        message.setId(id);
+        message.setText(text);
+        if (isPost){
+            long timestamp = ((long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
+            String author = ((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
+            message.setAuthor(author);
+            message.setTimestamp(timestamp);
+        }
+        return message;
     }
 
     public static JSONObject stringToJsonObject(String json) throws ParseException {
@@ -106,5 +147,15 @@ public class MessageHelper {
             logger.error("An error occurred while reading input stream", e);
             throw new RuntimeException(e);
         }
+    }
+    @SuppressWarnings("unchecked")
+    private static JSONObject messageToJSONObject(Message message) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(Constants.Message.FIELD_ID, message.getId());
+        jsonObject.put(Constants.Message.FIELD_AUTHOR, message.getAuthor());
+        jsonObject.put(Constants.Message.FIELD_TIMESTAMP, message.getTimestamp());
+        jsonObject.put(Constants.Message.FIELD_TEXT, message.getText());
+        jsonObject.put(Constants.Message.FIELD_IS_EDIT,message.getIsEdit());
+        return jsonObject;
     }
 }

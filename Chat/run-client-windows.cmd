@@ -1,1 +1,1 @@
-"%JAVA_HOME%/bin/java" -cp bin;libs/json-simple-1.1.1.jar by.bsu.up.chat.Launcher --client -l localhost -p 999
+"%JAVA_HOME%/bin/java" -cp bin;libs/json-simple-1.1.1.jar by.bsu.up.chat.Launcher --client -l 10.160.60.105 -p 8888

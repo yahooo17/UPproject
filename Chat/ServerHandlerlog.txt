@@ -24,3 +24,69 @@
 2016-03-28 18:03:57.323: [by.bsu.up.chat.server.ServerHandler] Received new message from user: one more message
 2016-03-28 18:04:15.354: [by.bsu.up.chat.server.ServerHandler] Received new message from user: loading time
 
+2016-04-01 16:23:54.059: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User1', timestamp=1459169330000, text='Hello, all!'}
+2016-04-01 16:26:21.986: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User 2', timestamp=1459169330000, text='WhatвЂ™s up ?'}
+2016-04-01 17:19:08.59: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User1', timestamp=1459169330000, text='Hello, all!'}
+2016-04-01 17:19:43.981: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User2', timestamp=1459169340000, text='What's up?'}
+2016-04-01 18:55:09.881: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User2', timestamp=1459169340000, text='What's up?'}
+2016-04-01 19:07:46.318: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User2', timestamp=1459169340000, text='What's up?'}
+2016-04-01 19:07:55.586: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User 1', timestamp=1459169330000, text='Hi !'}
+2016-04-01 19:08:09.116: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='3', author='User 1', timestamp=1459169330000, text='IвЂ™m fine, and you ?'}
+2016-04-01 20:55:35.698: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:55:55.917: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:55:56.909: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:55:57.925: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:55:58.923: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:55:59.922: [by.bsu.up.chat.server.ServerHandler] Could not send response
+2016-04-01 20:57:45.124: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User1', timestamp=1459169330000, text='Hello, all!'}
+2016-04-01 21:07:33.534: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User 1', timestamp=1459169330000, text='Hi !'}
+2016-04-01 21:07:48.326: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='4', author='User 2', timestamp=1459169330000, text='Me too'}
+2016-04-01 21:18:01.911: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:19:25.425: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:25:25.264: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:28:21.73: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:32:26.906: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:34:46.541: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:36:40.76: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:39:07.596: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:40:53.393: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-01 21:43:24.729: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 14:44:38.322: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 14:47:19.445: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 14:48:12.627: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 14:51:07.887: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 14:54:08.576: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 14:56:07.978: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 14:58:05.232: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 14:58:57.84: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User 1', timestamp=1459169330000, text='Hi !'}
+2016-04-02 15:05:10.501: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='3', author='User 1', timestamp=1459169330000, text='I'm fine and you?'}
+2016-04-02 15:08:21.136: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 15:09:48.995: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:12:30.267: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:14:17.988: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:15:12.218: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 15:16:01.698: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 15:16:37.527: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 15:17:33.446: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='4', author='User 2', timestamp=1459169330000, text='Me too'}
+2016-04-02 15:25:25.154: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:29:30.571: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='5', author='User1', timestamp=1459169330000, text='Hello, all!'}
+2016-04-02 15:35:18.73: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:44:29.537: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:45:03.571: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:57:28.89: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 15:59:46.87: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:00:13.67: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:00:24.085: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 16:00:46.459: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:00:57.568: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:01:02.108: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:03:38.836: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:06:06.32: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:14:05.687: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 16:14:59.963: [by.bsu.up.chat.server.ServerHandler] Could not parse message.
+2016-04-02 22:18:52.942: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='4', author='User 2', timestamp=1459169330000, text='Me too'}
+2016-04-02 22:20:31.922: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-02 22:36:14.523: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1', author='User 1', timestamp=1459169330000, text='Hi!', isEdit=' '}
+2016-04-02 22:37:01.094: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User 2', timestamp=1459169330000, text='What's up?', isEdit=' '}
+2016-04-02 22:37:31.911: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='3', author='User 1', timestamp=1459169330000, text='I'm fine and you?', isEdit=' '}
+2016-04-02 22:40:27.176: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='4', author='User 2', timestamp=1459169330000, text='Me too', isEdit=' '}
