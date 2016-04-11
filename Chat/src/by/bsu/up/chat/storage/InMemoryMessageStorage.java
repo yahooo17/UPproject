@@ -67,7 +67,7 @@ public class InMemoryMessageStorage implements MessageStorage {
     public synchronized boolean removeMessage(String messageId) {
         for (int i = 0; i<messages.size(); i++){
             if (messages.get(i).getId().equals(messageId)){
-                messages.remove(i);
+                messages.get(i).setText("DELETED");
                 try {
                     saveMessages(messages);
                 }catch (IOException e){
@@ -95,7 +95,6 @@ public class InMemoryMessageStorage implements MessageStorage {
                     JsonObject tmpObject = array.getJsonObject(i);
                     Message tempMessage = new Message(tmpObject);
                     messages.add(tempMessage);
-                    //System.out.println(tmpObject);
                 }
             }
         } catch (IOException e){

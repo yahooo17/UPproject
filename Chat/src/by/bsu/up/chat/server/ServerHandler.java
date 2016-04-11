@@ -113,14 +113,14 @@ public class ServerHandler implements HttpHandler {
     }
 
     private Response doDelete(HttpExchange httpExchange) {
-        String query = httpExchange.getRequestURI().getQuery();
-        if (query == null) {
-            return Response.badRequest("Absent query in request");
+        try {
+            Message message = MessageHelper.getClientMessage(httpExchange.getRequestBody(),false);
+            messageStorage.removeMessage(message.getId());
+            return Response.ok();
+        } catch (ParseException e) {
+            logger.error("Could not parse message.", e);
+            return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
         }
-        Map<String, String> map = queryToMap(query);
-        String token = map.get(Constants.REQUEST_PARAM_MESSAGE_ID);
-        messageStorage.removeMessage(token);
-        return Response.ok();
     }
     private Response doOptions(HttpExchange httpExchange) {
         httpExchange.getResponseHeaders().add(Constants.REQUEST_HEADER_ACCESS_CONTROL_METHODS,Constants.HEADER_VALUE_ALL_METHODS);

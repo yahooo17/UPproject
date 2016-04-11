@@ -1,13 +1,16 @@
 (function () {
     'use strict';
-    let mes = restore();
-    let historyList = [];
+    var Application = {
+        mainUrl : 'http://localhost:8080/chat',
+        messageList : [],
+        token : 'TN11EN',
+        isConnected : null
+    };
     let currentUser = loadUsername();
     let editFlag = false;
     let chat;
-    createHistoryList();
     window.addEventListener('load', ()=> {
-        loadHistory();
+        createHistoryList();
         document.querySelector(".userHolder").innerText = currentUser;
         let loginButton = document.querySelector('.changeUsername');
         loginButton.addEventListener('click', changeUsername);
@@ -16,12 +19,17 @@
     });
 
     function createHistoryList() {
-        if (mes != null) {
-            for (let i = 0; i < mes.length; i++) {
-                let data = createMessage(mes[i].name, mes[i].message, mes[i].edit);
-                data.time = mes[i].time;
-                historyList.push(data);
-            }
+        var url = Application.mainUrl + '?token=' + Application.token;
+        ajax('GET', url, null, function(responseText){
+            var json = JSON.parse(responseText);
+            Application.messageList = json.messages;
+            loadHistory();
+            Connect();
+        });
+
+        if (Application.messageList == null) {
+            Application.messageList = [];
+            store(Application.messageList);
         }
     }
 
@@ -45,7 +53,7 @@
 
     function updateUser() {
         if (!currentUser) {
-            return;
+
         }
         else {
             let userName = document.querySelector(".userHolder");
@@ -68,14 +76,18 @@
             .forEach((button) => button
                 .addEventListener('click', (event) => {
                     let delOne = event.target.parentElement;
-                    for (let i = 0; i < historyList.length; i++) {
-                        if (historyList[i].id == delOne.id) {
-                            historyList[i].message = "DELETED";
+                    for (let i = 0; i < Application.messageList.length; i++) {
+                        if (Application.messageList[i].id == delOne.id) {
+                            Application.messageList[i].text = "DELETED";
+                            var mesToDelete = {
+                                id: Application.messageList[i].id
+                            };
+                            ajax('DELETE', Application.mainUrl,JSON.stringify(mesToDelete), function(){
+                                loadHistory();
+                            });
                         }
                     }
-                    delOne.innerText = "DELETED";
-                    store(historyList);
-                    updateScroll();
+                    store(Application.messageList);
                 }));
     }
 
@@ -108,6 +120,7 @@
         cancel.className = 'tempButton';
         chat.appendChild(cancel);
         cancel.addEventListener('click', cancelChanges);
+        updateScroll();
         return saveChanges;
     }
 
@@ -119,21 +132,23 @@
         let destroyButtons = [].slice.call(document.querySelectorAll('.tempButton'));
         destroyButtons.forEach((button) => button.remove());
         editFlag = false;
+        updateScroll();
     }
 
     function saveEdit(editOne) {
         let editData = document.querySelector('#msg-input');
         editOne.innerText = editData.value;
         cancelChanges();
-        for (let i = 0; i < historyList.length; i++) {
-            if (historyList[i].id == editOne.parentElement.id) {
-                historyList[i].message = editOne.innerText;
-                historyList[i].edit = "was edited";
-                let forEdit = editOne.parentElement.getElementsByClassName('edit')[0];
-                forEdit.innerText = "was edited";
+        for (let i = 0; i < Application.messageList.length; i++) {
+            if (Application.messageList[i].id == editOne.parentElement.id) {
+                Application.messageList[i].text = editOne.innerText;
+                Application.messageList[i].isEdit = "was edited";
+                ajax('PUT', Application.mainUrl, JSON.stringify(Application.messageList[i]), function(){
+                    loadHistory();
+                });
             }
         }
-        store(historyList);
+        store(Application.messageList);
         updateScroll();
     }
 
@@ -141,27 +156,28 @@
         let inputMessage = document.querySelector('#msg-input');
         if (inputMessage.value != '') {
             let data = createMessage(currentUser, inputMessage.value, '');
-            historyList.push(data);
+            Application.messageList.push(data);
             inputMessage.value = '';
             let addMessage = document.createElement('div');
             addMessage.className = 'myMessage';
             addMessage.innerHTML = formMyMessage(data);
-            let chat = document.querySelector('.chat-messages');
-            chat.appendChild(addMessage);
+            ajax('POST', Application.mainUrl, JSON.stringify(data), function(){
+                loadHistory();
+            });
             deleteMessage();
             editMessage();
-            store(historyList);
+            store(Application.messageList);
             updateScroll();
         }
     }
 
     function createMessage(name_, msg_, _edit) {
         return {
-            name: name_,
-            message: msg_,
+            author: name_,
+            text: msg_,
             id: uniqueId(),
-            time: new Date().toLocaleTimeString(),
-            edit: _edit
+            timestamp: new Date().getTime(),
+            isEdit: _edit
         }
     }
 
@@ -172,34 +188,38 @@
     }
 
     function formMyMessage(data) {
-        return `<div id=${data.id}>${data.name} ${data.time} <div class="edit">${data.edit}</div>
+        return `<div id=${data.id}>${data.author} ${new Date(data.timestamp).toLocaleString()} <div class="edit">${data.isEdit}</div>
                 <button class="delButton"></button>
                 <button class="editButton"></button>
-                <div class="message">${data.message}</div></div>`;
+                <div class="message">${data.text}</div></div>`;
     }
 
     function formDeletedMessage(data){
-        return `<div id=${data.id}>${data.name} ${data.time}
-                <div class="message">${data.message}</div></div>`;
+        return `<div id=${data.id}>${data.author} ${new Date(data.timestamp).toLocaleString()}
+                <div class="message">${data.text}</div></div>`;
     }
 
     function loadHistory() {
         chat = document.querySelector('.chat-messages');
-        for (let i = 0; i < historyList.length; i++) {
+        var children = chat.children;
+        while (children.length > 0) {
+            chat.removeChild(children[0]);
+        }
+        for (let i = 0; i < Application.messageList.length; i++) {
             let addMessage = document.createElement('div');
-            if (historyList[i].name == currentUser) {
+            if (Application.messageList[i].author == currentUser) {
                 addMessage.className = 'myMessage';
-                if (historyList[i].message != "DELETED") {
-                    addMessage.innerHTML = formMyMessage(historyList[i]);
+                if (Application.messageList[i].text != "DELETED") {
+                    addMessage.innerHTML = formMyMessage(Application.messageList[i]);
                 }
-                else if (historyList[i].message == "DELETED"){
-                    addMessage.innerHTML = formDeletedMessage(historyList[i]);
+                else if (Application.messageList[i].text == "DELETED"){
+                    addMessage.innerHTML = formDeletedMessage(Application.messageList[i]);
                 }
             }
-            else if (historyList[i].name != currentUser) {
+            else if (Application.messageList[i].author != currentUser) {
                 addMessage.className = 'alienMessage';
-                addMessage.innerHTML = `<div class ="alien-info">${historyList[i].name} ${historyList[i].time} ${historyList[i].edit}
-                                        </div><i class ="message"> ${historyList[i].message}</i>`;
+                addMessage.innerHTML = `<div class ="alien-info">${Application.messageList[i].author} ${new Date(Application.messageList[i].timestamp).toLocaleString()}
+                                    ${Application.messageList[i].isEdit}</div><i class ="message"> ${Application.messageList[i].text}</i>`;
             }
             chat.appendChild(addMessage);
         }
@@ -239,5 +259,81 @@
             return;
         }
         localStorage.setItem("Username", currentUser);
+    }
+    function ajax(method, url, data, continueWith) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open(method || 'GET', url, true);
+
+        xhr.onload = function () {
+            if (xhr.readyState !== 4)
+                return;
+
+            if(xhr.status != 200) {
+                defaultErrorHandler('Error on the server side, response ' + xhr.status);
+                return;
+            }
+
+            if(isError(xhr.responseText)) {
+                defaultErrorHandler('Error on the server side, response ' + xhr.responseText);
+                return;
+            }
+
+            continueWith(xhr.responseText);
+            Application.isConnected = true;
+        };
+
+        xhr.ontimeout = function () {
+            ServerError();
+        };
+
+        xhr.onerror = function () {
+            ServerError();
+        };
+
+        xhr.send(data);
+    }
+
+    function defaultErrorHandler(message) {
+        console.error(message);
+    }
+
+    function isError(text) {
+        if(text == "")
+            return false;
+
+        try {
+            var obj = JSON.parse(text);
+        } catch(ex) {
+            return true;
+        }
+
+        return !!obj.error;
+    }
+
+    function ServerError(){
+        let errorServer = document.getElementsByClassName('ServerError')[0];
+        errorServer.innerHTML = `<img class="alarm" src="images/warning.png" alt="Connection problems">`;
+       // Application.isConnected = false;
+    }
+
+    function Connect() {
+        if(Application.isConnected)
+            return;
+
+        function whileConnected() {
+            Application.isConnected = setTimeout(function () {
+                ajax('GET', Application.mainUrl + '?token=' + Application.token, null,function (serverResponse) {
+                    if (Application.isConnected) {
+                        var json = JSON.parse(serverResponse);
+                        Application.messageList = json.messages;
+                        loadHistory();
+                        whileConnected();
+                    }
+                });
+            }, Math.round(1000));
+        }
+
+        whileConnected();
     }
 }());

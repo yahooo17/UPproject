@@ -90,3 +90,25 @@
 2016-04-02 22:37:01.094: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='2', author='User 2', timestamp=1459169330000, text='What's up?', isEdit=' '}
 2016-04-02 22:37:31.911: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='3', author='User 1', timestamp=1459169330000, text='I'm fine and you?', isEdit=' '}
 2016-04-02 22:40:27.176: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='4', author='User 2', timestamp=1459169330000, text='Me too', isEdit=' '}
+2016-04-08 18:21:52.506: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-08 18:28:27.32: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-08 18:33:00.568: [by.bsu.up.chat.server.ServerHandler] An error occurred when dispatching request.
+2016-04-08 18:36:56.358: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='588551571836', author='User 1', timestamp=1460133416343, text='vwvwrvr', isEdit=' '}
+2016-04-08 18:40:55.356: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='315662396001', author='User 2', timestamp=1460133655345, text='vre', isEdit=' '}
+2016-04-08 18:42:31.213: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='302499048465', author='Cheater', timestamp=1460133751191, text='go ahead eagles', isEdit=' '}
+2016-04-08 18:43:12.113: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='614217063335', author='User 2', timestamp=1460133792095, text='clear me?', isEdit=' '}
+2016-04-08 18:45:26.487: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='413454389311', author='User 2', timestamp=1460133926472, text='proverka', isEdit=' '}
+2016-04-08 19:01:01.053: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='164589572543', author='Nick', timestamp=1460134861038, text='god gave me everything i want', isEdit=' '}
+2016-04-11 00:09:12.921: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='426509715391', author='User 1', timestamp=1460326152884, text='main kampf', isEdit=' '}
+2016-04-11 00:14:47.351: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='178523660941', author='Nick', timestamp=1460326487335, text='gg wp', isEdit=' '}
+2016-04-11 14:49:44.18: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='44045302897', author='Cheater', timestamp=1460378984169, text='my game', isEdit=' '}
+2016-04-11 14:50:56.519: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='94677235604', author='Nick', timestamp=1460379056496, text='my rules', isEdit=' '}
+2016-04-11 15:04:15.658: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='143169551586', author='Cheater', timestamp=1460379855658, text='google chrome', isEdit=' '}
+2016-04-11 15:04:33.739: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='136057622986', author='Nick', timestamp=1460379873718, text='only?', isEdit=' '}
+2016-04-11 15:09:37.131: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='296942381589', author='User 1', timestamp=1460380177100, text='Hi!', isEdit=' '}
+2016-04-11 15:09:53.889: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='534100752479', author='User 2', timestamp=1460380193889, text='What's up?', isEdit=' '}
+2016-04-11 15:10:11.902: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='766379978313', author='User 1', timestamp=1460380211886, text='I'm fine and you?', isEdit=' '}
+2016-04-11 15:10:21.848: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='74875230641', author='User 2', timestamp=1460380221842, text='Me too', isEdit=' '}
+2016-04-11 15:11:18.814: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='622940115073', author='User 2', timestamp=1460380278799, text='Fine too, cockatoo', isEdit=' '}
+2016-04-11 15:12:12.82: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='320691134163', author='Shyshpanchik', timestamp=1460380332810, text='What are going tonight?', isEdit=' '}
+2016-04-11 15:12:46.249: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='331588588003', author='Turtle beach', timestamp=1460380366234, text='Hell knows, any suggestions?', isEdit=' '}
