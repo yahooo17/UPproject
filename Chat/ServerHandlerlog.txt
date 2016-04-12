@@ -112,3 +112,5 @@
 2016-04-11 15:11:18.814: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='622940115073', author='User 2', timestamp=1460380278799, text='Fine too, cockatoo', isEdit=' '}
 2016-04-11 15:12:12.82: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='320691134163', author='Shyshpanchik', timestamp=1460380332810, text='What are going tonight?', isEdit=' '}
 2016-04-11 15:12:46.249: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='331588588003', author='Turtle beach', timestamp=1460380366234, text='Hell knows, any suggestions?', isEdit=' '}
+2016-04-12 18:29:58.15: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='649706343592', author='Shyshpanchik', timestamp=1460478598127, text='anything can go wrong will go wrong', isEdit=' '}
+2016-04-12 18:34:56.804: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='432761802388', author='Turtle beach', timestamp=1460478896788, text='Are you sure?', isEdit=' '}

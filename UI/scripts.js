@@ -24,6 +24,7 @@
             var json = JSON.parse(responseText);
             Application.messageList = json.messages;
             loadHistory();
+            updateScroll();
             Connect();
         });
 
@@ -84,6 +85,7 @@
                             };
                             ajax('DELETE', Application.mainUrl,JSON.stringify(mesToDelete), function(){
                                 loadHistory();
+                                updateScroll();
                             });
                         }
                     }
@@ -145,11 +147,11 @@
                 Application.messageList[i].isEdit = "was edited";
                 ajax('PUT', Application.mainUrl, JSON.stringify(Application.messageList[i]), function(){
                     loadHistory();
+                    updateScroll();
                 });
             }
         }
         store(Application.messageList);
-        updateScroll();
     }
 
     function sendMessage() {
@@ -163,11 +165,11 @@
             addMessage.innerHTML = formMyMessage(data);
             ajax('POST', Application.mainUrl, JSON.stringify(data), function(){
                 loadHistory();
+                updateScroll();
             });
             deleteMessage();
             editMessage();
             store(Application.messageList);
-            updateScroll();
         }
     }
 
@@ -223,7 +225,6 @@
             }
             chat.appendChild(addMessage);
         }
-        updateScroll();
         deleteMessage();
         editMessage();
     }
@@ -314,7 +315,6 @@
     function ServerError(){
         let errorServer = document.getElementsByClassName('ServerError')[0];
         errorServer.innerHTML = `<img class="alarm" src="images/warning.png" alt="Connection problems">`;
-       // Application.isConnected = false;
     }
 
     function Connect() {
