@@ -1,0 +1,8 @@
+# gitignore file
+*.iml
+*.zip
+*.class
+*~
+.idea/
+out/
+target/

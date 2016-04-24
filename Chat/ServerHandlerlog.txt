@@ -114,3 +114,9 @@
 2016-04-11 15:12:46.249: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='331588588003', author='Turtle beach', timestamp=1460380366234, text='Hell knows, any suggestions?', isEdit=' '}
 2016-04-12 18:29:58.15: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='649706343592', author='Shyshpanchik', timestamp=1460478598127, text='anything can go wrong will go wrong', isEdit=' '}
 2016-04-12 18:34:56.804: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='432761802388', author='Turtle beach', timestamp=1460478896788, text='Are you sure?', isEdit=' '}
+2016-04-17 23:42:07.392: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='391113155784', author='Nick', timestamp=1460929327319, text='server error', isEdit=' '}
+2016-04-17 23:44:14.341: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='276456340551', author='Turtle beach', timestamp=1460929454326, text='go-go power rangers', isEdit=' '}
+2016-04-17 23:46:10.691: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='403827868344', author='Turtle beach', timestamp=1460929570676, text='ahahahahaha', isEdit=' '}
+2016-04-17 23:59:30.247: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='41568711371', author='Turtle beach', timestamp=1460930370236, text='go down, Moses', isEdit=' '}
+2016-04-18 00:01:21.585: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='993863940207', author='Nick', timestamp=1460930481571, text='Handle', isEdit=' '}
+2016-04-18 00:06:00.523: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='61712255280', author='User 2', timestamp=1460930760449, text='vwevw', isEdit=' '}
