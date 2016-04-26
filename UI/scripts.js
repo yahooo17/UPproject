@@ -53,7 +53,7 @@
     }
 
     function updateUser() {
-        if (!currentUser) {
+        if (!currentUser || Application.isConnected == false) {
 
         }
         else {
@@ -76,17 +76,19 @@
         deleteButtons
             .forEach((button) => button
                 .addEventListener('click', (event) => {
-                    let delOne = event.target.parentElement;
-                    for (let i = 0; i < Application.messageList.length; i++) {
-                        if (Application.messageList[i].id == delOne.id) {
-                            Application.messageList[i].text = "DELETED";
-                            var mesToDelete = {
-                                id: Application.messageList[i].id
-                            };
-                            ajax('DELETE', Application.mainUrl,JSON.stringify(mesToDelete), function(){
-                                loadHistory();
-                                updateScroll();
-                            });
+                    if (Application.isConnected!=false) {
+                        let delOne = event.target.parentElement;
+                        for (let i = 0; i < Application.messageList.length; i++) {
+                            if (Application.messageList[i].id == delOne.id) {
+                                Application.messageList[i].text = "DELETED";
+                                var mesToDelete = {
+                                    id: Application.messageList[i].id
+                                };
+                                ajax('DELETE', Application.mainUrl, JSON.stringify(mesToDelete), function () {
+                                    loadHistory();
+                                    updateScroll();
+                                });
+                            }
                         }
                     }
                     store(Application.messageList);
@@ -99,14 +101,26 @@
         editButtons
             .forEach((button) => button
                 .addEventListener('click', (event) => {
-                    if (editFlag == false) {
-                        editFlag = true;
+                    if (Application.isConnected!=false) {
+                        if (editFlag == false)
+                            editFlag = true;
                         let editOne = event.target.parentElement.parentElement.getElementsByClassName('message')[0];
                         inputMessage.value = editOne.innerText;
                         let saveChanges = createTempButtons();
                         saveChanges.addEventListener('click', () => saveEdit(editOne));
                     }
                 }));
+    }
+
+    function cancelChanges() {
+        let editData = document.querySelector('#msg-input');
+        editData.value = '';
+        let sendButton = document.querySelector('#send');
+        sendButton.disabled = false;
+        let destroyButtons = [].slice.call(document.querySelectorAll('.tempButton'));
+        destroyButtons.forEach((button) => button.remove());
+        editFlag = false;
+        updateScroll();
     }
 
     function createTempButtons() {
@@ -124,17 +138,6 @@
         cancel.addEventListener('click', cancelChanges);
         updateScroll();
         return saveChanges;
-    }
-
-    function cancelChanges() {
-        let editData = document.querySelector('#msg-input');
-        editData.value = '';
-        let sendButton = document.querySelector('#send');
-        sendButton.disabled = false;
-        let destroyButtons = [].slice.call(document.querySelectorAll('.tempButton'));
-        destroyButtons.forEach((button) => button.remove());
-        editFlag = false;
-        updateScroll();
     }
 
     function saveEdit(editOne) {
@@ -156,7 +159,7 @@
 
     function sendMessage() {
         let inputMessage = document.querySelector('#msg-input');
-        if (inputMessage.value != '') {
+        if (inputMessage.value != '' && Application.isConnected != false) {
             let data = createMessage(currentUser, inputMessage.value, '');
             Application.messageList.push(data);
             inputMessage.value = '';
@@ -279,9 +282,11 @@
                 defaultErrorHandler('Error on the server side, response ' + xhr.responseText);
                 return;
             }
-
             continueWith(xhr.responseText);
+            let errorServer = document.getElementsByClassName('ServerError')[0];
+            errorServer.innerHTML = ``;
             Application.isConnected = true;
+            blockingButtons();
         };
 
         xhr.ontimeout = function () {
@@ -315,6 +320,32 @@
     function ServerError(){
         let errorServer = document.getElementsByClassName('ServerError')[0];
         errorServer.innerHTML = `<img class="alarm" src="images/warning.png" alt="Connection problems">`;
+        Application.isConnected = false;
+        blockingButtons();
+        Connect();
+    }
+
+    function blockingButtons(){
+        let sendButton = document.querySelector('#send');
+        let loginButton = document.querySelector('.changeUsername');
+        let editButtons = [].slice.call(document.querySelectorAll('.editButton'));
+        let deleteButtons = [].slice.call(document.querySelectorAll('.delButton'));
+        if (Application.isConnected==true){
+            sendButton.disabled = false;
+            loginButton.disabled = false;
+            editButtons
+                .forEach((button) => button.disabled = false);
+            deleteButtons
+                .forEach((button) => button.disabled = false);
+        }
+        else if (Application.isConnected == false){
+            sendButton.disabled = true;
+            loginButton.disabled = true;
+            editButtons
+                .forEach((button) => button.disabled = true);
+            deleteButtons
+                .forEach((button) => button.disabled = true);
+        }
     }
 
     function Connect() {
@@ -328,8 +359,8 @@
                         var json = JSON.parse(serverResponse);
                         Application.messageList = json.messages;
                         loadHistory();
-                        whileConnected();
                     }
+                    whileConnected();
                 });
             }, Math.round(1000));
         }

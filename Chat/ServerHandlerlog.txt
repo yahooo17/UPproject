@@ -120,3 +120,7 @@
 2016-04-17 23:59:30.247: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='41568711371', author='Turtle beach', timestamp=1460930370236, text='go down, Moses', isEdit=' '}
 2016-04-18 00:01:21.585: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='993863940207', author='Nick', timestamp=1460930481571, text='Handle', isEdit=' '}
 2016-04-18 00:06:00.523: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='61712255280', author='User 2', timestamp=1460930760449, text='vwevw', isEdit=' '}
+2016-04-27 00:13:26.078: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='117592489832', author='Jack', timestamp=1461708806051, text='tests', isEdit=' '}
+2016-04-27 00:37:51.712: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='1104171876153', author='Jack', timestamp=1461710271707, text='bla-bla-bla', isEdit=' '}
+2016-04-27 00:48:37.821: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='23179317910', author='User 2', timestamp=1461710917807, text='11111111', isEdit=' '}
+2016-04-27 00:49:35.958: [by.bsu.up.chat.server.ServerHandler] Received new message from user: Message{id='40639931788', author='Jack', timestamp=1461710975950, text='222222', isEdit=' '}
