@@ -319,7 +319,7 @@
 
     function ServerError(){
         let errorServer = document.getElementsByClassName('ServerError')[0];
-        errorServer.innerHTML = `<img class="alarm" src="images/warning.png" alt="Connection problems">`;
+        errorServer.innerHTML = `<img class="alarm" src="../../../../UI/images/warning.png" alt="Connection problems">`;
         Application.isConnected = false;
         blockingButtons();
         Connect();

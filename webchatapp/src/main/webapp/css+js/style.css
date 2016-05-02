@@ -113,14 +113,14 @@ textarea{
 .delButton {
     width: 20px;
     height: 20px;
-    background-image: url(images/delete.png);
+    background-image: url(/images/delete.png);
     background-size: cover;
     float: right;
 }
 .editButton {
     width: 20px;
     height: 20px;
-    background-image: url(images/redact.png);
+    background-image: url(/images/redact.png);
     background-size: cover;
     float: right;
 }
