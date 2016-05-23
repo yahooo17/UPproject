@@ -9,12 +9,12 @@
 <body>
     <div class="upper-part">
         <h1 class="name-chat">Chat</h1>
-        <input class="edit-name" type="text" placeholder="username">
-        <button class="changeUsername" type="button">Change</button>
+        <!--<input class="edit-name" type="text" placeholder="username">-->
+        <button class="changeUsername" type="button">Logout</button>
     </div>
     <div class="currentUser">
         Current user:
-        <span class="userHolder"></span>
+        <span class="userHolder">${pageContext.request.getParameter('login')}</span>
     </div>
     <div class="main-part">
         <div class="chat-messages">

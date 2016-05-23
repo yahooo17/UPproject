@@ -6,12 +6,12 @@
         token : 'TN11EN',
         isConnected : null
     };
-    let currentUser = loadUsername();
+    let currentUser;
     let editFlag = false;
     let chat;
     window.addEventListener('load', ()=> {
         createHistoryList();
-        document.querySelector(".userHolder").innerText = currentUser;
+        currentUser = initUsername();
         let loginButton = document.querySelector('.changeUsername');
         loginButton.addEventListener('click', changeUsername);
         let sendButton = document.querySelector('#send');
@@ -34,6 +34,19 @@
         }
     }
 
+    function initUsername(){
+        var editChangeName = document.getElementsByClassName("userHolder")[0];
+        var tmpUser = editChangeName.innerText;
+        if(tmpUser == '') {
+            var uid = getCookie('uid');
+            ajax('PUT', Application.mainUrl + "/getUsername", JSON.stringify(uid), function(responseText){
+                var json = responseText;
+                tmpUser =  json;
+                editChangeName.value = json;
+            });
+        }
+        return tmpUser;
+    }
     function loadUsername(){
         let name = restoreUsername();
         if (name != null){
@@ -45,10 +58,8 @@
     }
 
     function changeUsername() {
-        let userInput = document.querySelector('.edit-name');
-        currentUser = userInput.value;
-        updateUser();
-        userInput.value = '';
+        var url = Application.mainUrl + "/logout";
+        ajax('GET', url,null);
         storeUsername();
     }
 
@@ -270,9 +281,8 @@
         xhr.open(method || 'GET', url, true);
 
         xhr.onload = function () {
-            if (xhr.readyState !== 4)
+            if (xhr.readyState != 4)
                 return;
-
             if(xhr.status != 200) {
                 defaultErrorHandler('Error on the server side, response ' + xhr.status);
                 return;

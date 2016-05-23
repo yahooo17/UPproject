@@ -7,6 +7,7 @@ import javax.json.JsonReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,8 @@ public class LoginStorage {
         }
     }
     public static JsonArray getJson() throws IOException {
-        List<String> list= Files.readAllLines(Paths.get("D:\\Универ1\\1 курс\\моя прога\\UP\\webchatapp\\users.json"));
+        Path s = Paths.get("users.json");
+        List<String> list= Files.readAllLines(s);
         String JSONData = list.toString();
         JsonReader forRead = Json.createReader(new StringReader(JSONData));
         JsonArray forArray = forRead.readArray();

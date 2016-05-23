@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="login-form-container">
-    <form action="/chat" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <div class="logging">
             <label id="login-label">Username</label>
             <input id="login-field" name="login">
