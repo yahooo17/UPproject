@@ -10,7 +10,10 @@
     <div class="upper-part">
         <h1 class="name-chat">Chat</h1>
         <!--<input class="edit-name" type="text" placeholder="username">-->
-        <button class="changeUsername" type="button">Logout</button>
+        <!--<button class="changeUsername" type="button">Logout</button>-->
+        <form action="${pageContext.request.contextPath}/chat/logout" method="get">
+            <input class="changeUsername" id="changeUsername" type="submit" value="Logout">
+        </form>
     </div>
     <div class="currentUser">
         Current user:

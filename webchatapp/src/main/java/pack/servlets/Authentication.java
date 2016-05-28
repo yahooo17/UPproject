@@ -1,11 +1,5 @@
 package pack.servlets;
 
-import javax.servlet.http.HttpServlet;
-
-import pack.models.Account;
-import pack.models.LoginStorage;
-import pack.utils.StaticKeyStorage;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -14,13 +8,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
+
+import pack.models.Account;
+import pack.models.LoginStorage;
+import pack.utils.StaticKeyStorage;
 
 /**
  * Created by ASUS on 15.05.2016.

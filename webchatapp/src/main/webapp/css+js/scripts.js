@@ -13,7 +13,7 @@
         createHistoryList();
         currentUser = initUsername();
         let loginButton = document.querySelector('.changeUsername');
-        loginButton.addEventListener('click', changeUsername);
+      //  loginButton.addEventListener('click', changeUsername);
         let sendButton = document.querySelector('#send');
         sendButton.addEventListener('click', sendMessage);
     });

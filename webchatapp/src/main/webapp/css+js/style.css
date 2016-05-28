@@ -19,6 +19,18 @@ html,body{
     height: 80px;
     width: 98%;
 }
+.changeUsername{
+    height: 24px;
+    width: 7%;
+    margin-right: auto;
+    text-align: center;
+    position: inherit;
+    margin-top: 31px;
+    margin-left: 68.5%;
+    padding-right: auto;
+    vertical-align: middle;
+    display: inline-block;
+}
 .name-chat {
     color: white;
     margin-top: 1%;
@@ -50,18 +62,6 @@ img.alarm {
     vertical-align: middle;
     border-radius: 10px;
     border: 2px solid grey;
-}
-.changeUsername{
-    height: 24px;
-    width: 7%;
-    margin-right: auto;
-    text-align: center;
-    position: absolute;
-    margin-top: 31px;
-    margin-left: 68.5%;
-    padding-right: auto;
-    vertical-align: middle;
-    display: inline-block;
 }
 .main-part {
     position: absolute;
