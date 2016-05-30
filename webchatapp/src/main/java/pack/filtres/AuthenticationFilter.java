@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Created by ASUS on 15.05.2016.
  */
-@WebFilter(value = "/chatServlet")
+@WebFilter(value = "/*")
 public class AuthenticationFilter implements Filter{
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
